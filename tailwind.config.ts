@@ -10,6 +10,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      boxShadow: {
+        card: '0px 4px 25px 4px rgba(255, 255, 255, 0.25)',
+      },
       colors: {
         green: {
           50: '#E8FAF0',
@@ -23,6 +26,18 @@ const config: Config = {
           800: '#095028',
           900: '#052814',
         },
+        purple: {
+          50: '#F2EAFA',
+          100: '#E4D4F4',
+          200: '#C9A9E9',
+          300: '#AE7EDE',
+          400: '#9353D3',
+          500: '#7828C8',
+          600: '#6020A0',
+          700: '#481878',
+          800: '#301050',
+          900: '#180828',
+        },
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
@@ -33,7 +48,6 @@ const config: Config = {
   darkMode: 'class',
   plugins: [
     nextui({
-      addCommonColors: true,
       themes: {
         light: {
           colors: {
