@@ -11,7 +11,7 @@ const config: Config = {
   theme: {
     extend: {
       boxShadow: {
-        card: '0px 4px 25px 4px rgba(255, 255, 255, 0.25)',
+        card: 'inset 0 0 0.5px 1px hsla(0, 0%, 100%, 0.1), 0 0 0 1px hsla(230, 13%, 9%, 0.075), 0 0.3px 0.4px hsla(230, 13%, 9%, 0.02), 0 0.9px 1.5px hsla(230, 13%, 9%, 0.045), 0 3.5px 6px hsla(230, 13%, 9%, 0.09);',
       },
       colors: {
         green: {
@@ -37,6 +37,18 @@ const config: Config = {
           700: '#481878',
           800: '#301050',
           900: '#180828',
+        },
+        zinc: {
+          50: '#FAFAFA',
+          100: '#F4F4F5',
+          200: '#E4E4E7',
+          300: '#D4D4D8',
+          400: '#A1A1AA',
+          500: '#71717A',
+          600: '#52525B',
+          700: '#3F3F46',
+          800: '#27272A',
+          900: '#18181B',
         },
       },
       backgroundImage: {
