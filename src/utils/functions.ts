@@ -27,7 +27,6 @@ export { getData };
 
 async function postData(_url: string, _data: any, authToken: string | undefined) {
   try {
-    console.log(JSON.stringify(_data));
     const options =
       authToken !== undefined
         ? {
@@ -50,7 +49,7 @@ async function postData(_url: string, _data: any, authToken: string | undefined)
     const res = await fetch(_url, options);
 
     return {
-      data: res.ok ? await res.json() : null,
+      data: await res.json(),
       success: res.ok,
       status: res.status,
       error: res.statusText,

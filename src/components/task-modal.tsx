@@ -18,7 +18,7 @@ export default function TaskModal({ onOpen, isOpen, onOpenChange }: Props) {
         }}
         onOpenChange={onOpenChange}
       >
-        <ModalContent>
+        <ModalContent className="min-h-[700px]">
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">Modal Title</ModalHeader>
