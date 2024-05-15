@@ -1,8 +1,9 @@
 'use client';
 
 import { postData } from '@/utils/functions';
+import { login } from '@/utils/session';
 import { Input } from '@nextui-org/react';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 
 const RegisterForm = () => {
   const [signIn, setSignIn] = useState(false);
@@ -13,7 +14,7 @@ const RegisterForm = () => {
 
   const [messageError, setMessageError] = useState(false);
 
-  const [messageSuccess, setMessageSuccess] = useState();
+  const [messageSuccess, setMessageSuccess] = useState<any>();
   console.log('🚀 ~ RegisterForm ~ messageSuccess:', messageSuccess);
 
   const [formData, setFormData] = useState({
@@ -42,7 +43,8 @@ const RegisterForm = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handlePost = async (token: string | undefined) => {
+  const handlePost = async (e: FormEvent<HTMLFormElement>, token: string | undefined) => {
+    e.preventDefault();
     const response = await postData('http://127.0.0.1:8000/register', formData, token);
     if (response.success) {
       setRegisterSuccess(true);
@@ -67,7 +69,7 @@ const RegisterForm = () => {
             className="flex flex-col gap-4 mt-2"
             onSubmit={(event) => {
               event.preventDefault();
-              handlePost(undefined);
+              login(formData, messageSuccess?.token);
             }}
           >
             <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
@@ -102,8 +104,7 @@ const RegisterForm = () => {
               <form
                 className="flex flex-col gap-4 mt-2"
                 onSubmit={(event) => {
-                  event.preventDefault();
-                  handlePost(undefined);
+                  handlePost(event, undefined);
                 }}
               >
                 <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
@@ -118,7 +119,7 @@ const RegisterForm = () => {
                 {postError ? <span style={{ color: 'red' }}>{messageError}</span> : null}
                 <div className="flex justify-between">
                   <button
-                    className="bg-primary text-md font-bold rounded-full px-5 py-2 self-start hover:bg-primary-400"
+                    className="bg-primary text-md font-bold rounded-full px-5 py-2 self-start hover:bg-primary/70"
                     type="submit"
                   >
                     Submit
