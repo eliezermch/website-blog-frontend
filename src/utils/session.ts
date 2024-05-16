@@ -12,7 +12,7 @@ export async function encrypt(payload: any) {
   return await new SignJWT(payload)
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
-    .setExpirationTime('10 sec from now')
+    .setExpirationTime('2 hours from now')
     .sign(key);
 }
 
@@ -23,24 +23,29 @@ export async function decrypt(input: string): Promise<any> {
   return payload;
 }
 
-export async function login(formData: any, token: string) {
+export async function login(formData: any) {
   // Verify credentials && get the user
-  const response = await postData('http://127.0.0.1:8000/login', formData, token);
+  const response = await postData('http://127.0.0.1:8000/login', formData, undefined);
   console.log('🚀 ~ login ~ data:', response);
 
-  const user = {
-    email: response.data.user.email,
-    username: response.data.user.username,
-    tasks: response.data.user.tasks,
-  };
+  if (response.success) {
+    const user = {
+      email: response.data.user.email,
+      username: response.data.user.username,
+      tasks: response.data.user.tasks,
+      token: response.data.token,
+    };
 
-  console.log('🚀 ~ login ~ user:', user);
-  // Create the session
-  const expires = new Date(Date.now() + 10 * 1000);
-  const session = await encrypt({ user, expires });
+    console.log('🚀 ~ login ~ user:', user);
+    // Create the session
+    const expires = new Date(Date.now() + 2 * 60 * 60 * 1000);
+    const session = await encrypt({ user, expires });
 
-  // Save the session in a cookie
-  cookies().set('session', session, { expires, httpOnly: true });
+    // Save the session in a cookie
+    cookies().set('session', session, { expires, httpOnly: true });
+  }
+
+  return response;
 }
 
 export async function logout() {
@@ -56,6 +61,7 @@ export async function getSession() {
 
 export async function updateSession(request: NextRequest) {
   const session = request.cookies.get('session')?.value;
+  console.log('🚀 ~ updateSession ~ session:', session);
   if (!session) return;
 
   // Refresh the session so it doesn't expire

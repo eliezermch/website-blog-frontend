@@ -1,16 +1,14 @@
 import { getSession } from '@/utils/session';
 import { redirect } from 'next/navigation';
 
-export default async function Home() {
+const Profile = async () => {
   const session = await getSession();
 
   if (session === null) {
     redirect('/login');
   }
 
-  return (
-    <main className="dark">
-      <pre>{JSON.stringify(session, null, 2)}</pre>
-    </main>
-  );
-}
+  return <div>Profile</div>;
+};
+
+export default Profile;

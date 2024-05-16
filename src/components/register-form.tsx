@@ -14,9 +14,6 @@ const RegisterForm = () => {
 
   const [messageError, setMessageError] = useState(false);
 
-  const [messageSuccess, setMessageSuccess] = useState<any>();
-  console.log('🚀 ~ RegisterForm ~ messageSuccess:', messageSuccess);
-
   const [formData, setFormData] = useState({
     name: '',
     username: '',
@@ -43,13 +40,13 @@ const RegisterForm = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handlePost = async (e: FormEvent<HTMLFormElement>, token: string | undefined) => {
+  const handleRegister = async (e: FormEvent<HTMLFormElement>, token: string | undefined) => {
     e.preventDefault();
     const response = await postData('http://127.0.0.1:8000/register', formData, token);
+    console.log('🚀 ~ handlePost ~ response:', response);
     if (response.success) {
       setRegisterSuccess(true);
       setSignIn(true);
-      setMessageSuccess(response.data);
     } else {
       setPostError(true);
       setMessageError(response.data.username[0]);
@@ -57,19 +54,30 @@ const RegisterForm = () => {
     }
   };
 
+  const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const response = await login(formData);
+    console.log('🚀 ~ handlePost ~ response:', response);
+    if (response.success) {
+      //
+    } else {
+      setPostError(true);
+      setMessageError(response.data.error);
+    }
+  };
+
   return (
     <div className="min-w-[320px] mac-w-[320px] md:min-w-[400px] md:max-w-[400px] xl:min-w-[440px] xl:max-w-[440px]">
       {signIn ? (
         <>
-          {registerSuccess && (
+          {registerSuccess && !messageError && (
             <span className="text-primary">Successfully registered, please sign in with your information below.</span>
           )}
 
           <form
             className="flex flex-col gap-4 mt-2"
             onSubmit={(event) => {
-              event.preventDefault();
-              login(formData, messageSuccess?.token);
+              handleLogin(event);
             }}
           >
             <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
@@ -81,17 +89,20 @@ const RegisterForm = () => {
             {postError ? <span style={{ color: 'red' }}>{messageError}</span> : null}
             <div className="flex justify-between">
               <button
-                className="bg-primary text-md font-bold rounded-full px-5 py-2 self-start hover:bg-primary-400"
+                className="bg-primary text-md font-bold rounded-full px-5 py-2 self-start hover:bg-primary/70"
                 type="submit"
               >
                 Sign In
               </button>
-              <span
-                onClick={() => setSignIn(false)}
-                className="text-primary underline underline-offset-2 hover:cursor-pointer"
-              >
-                I do not have an account yet
-              </span>
+
+              {!registerSuccess ? (
+                <span
+                  onClick={() => setSignIn(false)}
+                  className="text-primary underline underline-offset-2 hover:cursor-pointer"
+                >
+                  I do not have an account yet
+                </span>
+              ) : null}
             </div>
 
             <span style={{ color: 'red' }}>{errors.name}</span>
@@ -104,7 +115,7 @@ const RegisterForm = () => {
               <form
                 className="flex flex-col gap-4 mt-2"
                 onSubmit={(event) => {
-                  handlePost(event, undefined);
+                  handleRegister(event, undefined);
                 }}
               >
                 <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
