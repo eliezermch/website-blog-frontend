@@ -1,6 +1,7 @@
 'use client';
 
 import { Session } from '@/types/session-model';
+import { getRandomHexColor } from '@/utils/functions';
 import { logout } from '@/utils/session';
 import { Avatar, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@nextui-org/react';
 
@@ -18,9 +19,11 @@ const DropdownProfile = ({ session }: Props) => {
             as="button"
             className="transition-transform"
             color="primary"
-            name={session.user.username}
+            name={session.user.first_name}
             size="sm"
-            src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+            src={`https://images.placeholders.dev/?text=${session.user.first_name
+              .charAt(0)
+              .toLocaleUpperCase()}&width=50&height=50&bgColor=${getRandomHexColor()}`}
           />
         </DropdownTrigger>
         <DropdownMenu aria-label="Profile Actions" variant="flat">

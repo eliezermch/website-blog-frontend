@@ -2,8 +2,9 @@ export interface Session {
   user: {
     email: string;
     username: string;
-    tasks: Task | [];
-    toke: string;
+    first_name: string;
+    tasks: Task[];
+    token: string;
   };
   expires: string;
   iat: number;
@@ -17,4 +18,3 @@ export interface Task {
   done: boolean;
   created_at: string;
 }
-[];

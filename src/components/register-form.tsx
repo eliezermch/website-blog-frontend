@@ -15,7 +15,7 @@ const RegisterForm = () => {
   const [messageError, setMessageError] = useState(false);
 
   const [formData, setFormData] = useState({
-    name: '',
+    first_name: '',
     username: '',
     email: '',
     password: '',
@@ -57,7 +57,6 @@ const RegisterForm = () => {
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const response = await login(formData);
-    console.log('🚀 ~ handlePost ~ response:', response);
     if (response.success) {
       //
     } else {
@@ -120,6 +119,9 @@ const RegisterForm = () => {
               >
                 <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
                   <Input type="userName" label="Username" name="username" isRequired onChange={handleChange} />
+                </div>
+                <div className="flex flex-col w-full flex-wrap md:flex-nowrap gap-4">
+                  <Input type="first_name" label="Name" name="first_name" isRequired onChange={handleChange} />
                 </div>
                 <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
                   <Input type="email" label="Email" name="email" isRequired onChange={handleChange} />

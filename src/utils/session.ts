@@ -32,6 +32,7 @@ export async function login(formData: any) {
     const user = {
       email: response.data.user.email,
       username: response.data.user.username,
+      first_name: response.data.user.first_name,
       tasks: response.data.user.tasks,
       token: response.data.token,
     };
