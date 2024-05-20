@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, Card, CardBody, useDisclosure } from '@nextui-org/react';
+import { Card, CardBody, useDisclosure } from '@nextui-org/react';
 import { IconEdit, IconTrash } from '@tabler/icons-react';
 import TaskModal from './task-modal';
 

@@ -10,7 +10,6 @@ interface Props {
 }
 
 export default function TaskModal({ isOpen, onOpenChange, title, description, done }: Props) {
-  console.log('🚀 ~ TaskModal ~ done:', done);
   return (
     <>
       <Modal
@@ -33,7 +32,7 @@ export default function TaskModal({ isOpen, onOpenChange, title, description, do
                 <Button color="danger" variant="light" onPress={onClose}>
                   Close
                 </Button>
-                <Checkbox className="pr-[24px]" defaultSelected color="primary">
+                <Checkbox className="pr-[24px]" color="primary">
                   Mark as done
                 </Checkbox>
                 <Button color="primary" onPress={onClose}>
