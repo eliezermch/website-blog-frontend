@@ -7,11 +7,13 @@ const TASKS_API = 'http://127.0.0.1:8000/api/tasks/';
 
 const ToDoPage = async () => {
   const session = await getSession();
-  const data = await fetchTasks(TASKS_API, session.user.token);
 
   if (session === null) {
     redirect('/login');
   }
+
+  const data = await fetchTasks(TASKS_API, session.user.token);
+  // console.log('🚀 ~ ToDoPage ~ data:', data);
 
   return (
     <main>

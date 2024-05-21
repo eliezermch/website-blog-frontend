@@ -57,6 +57,50 @@ async function postData(_url: string, _data: any, authToken: string | undefined)
     return { error };
   }
 }
+async function markAsDoneData(_url: string, authToken: string) {
+  try {
+    const options = {
+      method: 'POST', // Set the method to POST
+      headers: {
+        'Content-Type': 'application/json', // Assuming JSON data, set the appropriate header
+        Authorization: `Token ${authToken}`,
+      },
+    };
+
+    const res = await fetch(_url, options);
+    return {
+      data: await res.json(),
+      success: res.ok,
+      status: res.status,
+      error: res.statusText,
+    };
+  } catch (error) {
+    console.error(error);
+    return { error: error?.toString() };
+  }
+}
+
+async function deleteData(_url: string, id: number, authToken: string) {
+  try {
+    const options = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Token ${authToken}`,
+      },
+    };
+
+    const res = await fetch(`${_url}${id}`, options);
+
+    return {
+      status: res.status,
+      error: res.statusText,
+    };
+  } catch (error) {
+    console.error(error);
+    return { error: error?.toString() };
+  }
+}
 
 function getRandomHexColor() {
   function getRandomInt(min: number, max: number) {
@@ -81,4 +125,4 @@ function getRandomHexColor() {
   return '%23' + componentToHex(r) + componentToHex(g) + componentToHex(b);
 }
 
-export { getData, postData, getRandomHexColor };
+export { getData, postData, markAsDoneData, deleteData, getRandomHexColor };

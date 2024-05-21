@@ -6,7 +6,7 @@ import { NewTaskButton } from './new-task-button';
 interface Props {
   title: string;
   data: Session;
-  tasks: Task[];
+  tasks: Task[] | any;
 }
 
 const ToDoList = ({ title, data, tasks }: Props) => {
@@ -20,8 +20,15 @@ const ToDoList = ({ title, data, tasks }: Props) => {
             <NewTaskButton data={data} />
           </div>
 
-          {tasks?.map((task) => (
-            <TaskCard title={task.title} description={task.description} done={task.done} key={task.id} />
+          {tasks?.map((task: any) => (
+            <TaskCard
+              title={task.title}
+              session={data}
+              description={task.description}
+              done={task.done}
+              id={task.id}
+              key={task.id}
+            />
           ))}
         </div>
       </ScrollShadow>
