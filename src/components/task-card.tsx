@@ -30,7 +30,7 @@ const TaskCard = ({ title, description, done, id, session }: Props) => {
   return (
     <>
       <Card className="bg-green-700 mb-[12px] hover:cursor-pointer">
-        <CardBody className="max-h-[140px] min-h-[100px]">
+        <CardBody onClick={onOpen} className="max-h-[140px] min-h-[100px]">
           <div className="flex justify-between">
             <h4>{title}</h4>
             <div className="flex gap-[8px]">

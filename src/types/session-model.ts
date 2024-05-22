@@ -5,6 +5,7 @@ export interface Session {
     first_name: string;
     tasks: Task[];
     token: string;
+    avatar: string;
   };
   expires: string;
   iat: number;

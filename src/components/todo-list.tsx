@@ -20,7 +20,7 @@ const ToDoList = ({ title, data, tasks }: Props) => {
             <NewTaskButton data={data} />
           </div>
 
-          {tasks?.map((task: any) => (
+          {tasks?.map((task: Task) => (
             <TaskCard
               title={task.title}
               session={data}

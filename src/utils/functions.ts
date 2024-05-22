@@ -4,7 +4,7 @@ async function getData(_url: string, authToken: string | undefined) {
       authToken !== undefined
         ? {
             headers: {
-              'Content-Type': 'application/json', // Assuming JSON data, set the appropriate header
+              'Content-Type': 'application/json',
               Authorization: `Token ${authToken}`,
             },
           }
@@ -28,20 +28,20 @@ async function postData(_url: string, _data: any, authToken: string | undefined)
     const options =
       authToken !== undefined
         ? {
-            method: 'POST', // Set the method to POST
+            method: 'POST',
             headers: {
-              'Content-Type': 'application/json', // Assuming JSON data, set the appropriate header
+              'Content-Type': 'application/json',
               Authorization: `Token ${authToken}`,
             },
-            body: JSON.stringify(_data), // Convert the JavaScript object to a JSON string
+            body: JSON.stringify(_data),
           }
         : {
-            method: 'POST', // Set the method to POST
+            method: 'POST',
             headers: {
-              'Content-Type': 'application/json', // Assuming JSON data, set the appropriate header
+              'Content-Type': 'application/json',
               Authorization: `Token ${authToken || ''}`,
             },
-            body: JSON.stringify(_data), // Convert the JavaScript object to a JSON string
+            body: JSON.stringify(_data),
           };
 
     const res = await fetch(_url, options);
@@ -57,12 +57,13 @@ async function postData(_url: string, _data: any, authToken: string | undefined)
     return { error };
   }
 }
+
 async function markAsDoneData(_url: string, authToken: string) {
   try {
     const options = {
-      method: 'POST', // Set the method to POST
+      method: 'POST',
       headers: {
-        'Content-Type': 'application/json', // Assuming JSON data, set the appropriate header
+        'Content-Type': 'application/json',
         Authorization: `Token ${authToken}`,
       },
     };
@@ -77,6 +78,37 @@ async function markAsDoneData(_url: string, authToken: string) {
   } catch (error) {
     console.error(error);
     return { error: error?.toString() };
+  }
+}
+
+async function updateData(
+  _url: string,
+  _data: {
+    title: string;
+    description: string;
+  },
+  authToken: string
+) {
+  try {
+    const options = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Token ${authToken}`,
+      },
+      body: JSON.stringify(_data),
+    };
+
+    const res = await fetch(_url, options);
+    return {
+      data: await res.json(),
+      success: res.ok,
+      status: res.status,
+      error: res.statusText,
+    };
+  } catch (error) {
+    console.error(error);
+    return { error };
   }
 }
 
@@ -125,4 +157,4 @@ function getRandomHexColor() {
   return '%23' + componentToHex(r) + componentToHex(g) + componentToHex(b);
 }
 
-export { getData, postData, markAsDoneData, deleteData, getRandomHexColor };
+export { getData, postData, markAsDoneData, deleteData, updateData, getRandomHexColor };

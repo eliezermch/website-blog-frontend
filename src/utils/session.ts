@@ -3,7 +3,7 @@
 import { SignJWT, jwtVerify } from 'jose';
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
-import { postData } from './functions';
+import { getRandomHexColor, postData } from './functions';
 
 const secretKey = 'secret';
 const key = new TextEncoder().encode(secretKey);
@@ -35,6 +35,9 @@ export async function login(formData: any) {
       first_name: response.data.user.first_name,
       tasks: response.data.user.tasks,
       token: response.data.token,
+      avatar: `https://images.placeholders.dev/?text=${response.data.user.first_name
+        .charAt(0)
+        .toLocaleUpperCase()}&width=50&height=50&bgColor=${getRandomHexColor()}`,
     };
 
     console.log('🚀 ~ login ~ user:', user);
