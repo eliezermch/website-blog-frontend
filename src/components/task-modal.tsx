@@ -1,5 +1,3 @@
-'use client';
-
 import { markAsDoneTask } from '@/app/actions/mark-done-task-action';
 import { updateTask } from '@/app/actions/update-task-action';
 import {
@@ -29,22 +27,26 @@ interface Props {
 export default function TaskModal({ isOpen, onOpenChange, title, description, id, authToken, done }: Props) {
   const [titleValue, setTitleValue] = useState<string>(title);
   const [descriptionValue, setDescriptionValue] = useState<string>(description);
+  const [error, setError] = useState<string>('This field may not be blank.');
+  const [success, setSuccess] = useState<boolean>();
 
   const handleDone = () => {
     markAsDoneTask(`http://127.0.0.1:8000/api/tasks/${id}/done/`, authToken);
   };
 
-  const handleUpdate = () => {
-    console.log('🚀 ~ TaskModal ~ titleValue:', titleValue);
-    console.log('🚀 ~ TaskModal ~ descriptionValue:', descriptionValue);
-    updateTask(
-      `http://127.0.0.1:8000/api/tasks/${id}/`,
-      {
-        title: titleValue,
-        description: descriptionValue,
-      },
-      authToken
-    );
+  const handleUpdate = async () => {
+    if (titleValue !== '') {
+      const response = await updateTask(
+        `http://127.0.0.1:8000/api/tasks/${id}/`,
+        {
+          title: titleValue,
+          description: descriptionValue,
+        },
+        authToken
+      );
+      setError(response?.data.title);
+      setSuccess(response?.success);
+    }
   };
 
   return (
@@ -62,12 +64,18 @@ export default function TaskModal({ isOpen, onOpenChange, title, description, id
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1 mt-6">
-                <Input type="text" label="" defaultValue={title} onValueChange={setTitleValue} />
+                <Input
+                  type="text"
+                  label=""
+                  defaultValue={title}
+                  errorMessage={error}
+                  isRequired
+                  onValueChange={setTitleValue}
+                />
               </ModalHeader>
               <ModalBody className="h-full">
                 <Textarea
                   onValueChange={setDescriptionValue}
-                  isRequired
                   type="text"
                   minRows={5}
                   defaultValue={description}
@@ -87,7 +95,6 @@ export default function TaskModal({ isOpen, onOpenChange, title, description, id
                   color="primary"
                   onPress={() => {
                     handleUpdate();
-                    onClose();
                   }}
                 >
                   Save

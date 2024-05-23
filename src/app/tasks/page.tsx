@@ -25,8 +25,6 @@ const ToDoPage = async () => {
 
   const incompleteTasks = filterTasks(data, false);
 
-  const doneTasks = data.filter((task: Task) => task.done === true);
-
   return (
     <main>
       <div className="w-full flex flex-col justify-center items-center gap-[32px] md:px-[24px] lg:px-[0] md:gap-[130px] md:flex-row mt-[60px]">

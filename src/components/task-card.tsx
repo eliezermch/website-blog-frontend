@@ -1,6 +1,6 @@
 'use client';
 
-import { Card, CardBody, useDisclosure } from '@nextui-org/react';
+import { Button, Card, CardBody, Popover, PopoverContent, PopoverTrigger, useDisclosure } from '@nextui-org/react';
 import { IconEdit, IconTrash } from '@tabler/icons-react';
 import TaskModal from './task-modal';
 import { Session } from '@/types/session-model';
@@ -30,13 +30,28 @@ const TaskCard = ({ title, description, done, id, session }: Props) => {
   return (
     <>
       <Card className="bg-green-700 mb-[12px] hover:cursor-pointer">
-        <CardBody onClick={onOpen} className="max-h-[140px] min-h-[100px]">
+        <CardBody
+          // onClick={onOpen}
+          className="max-h-[140px] min-h-[100px]"
+        >
           <div className="flex justify-between">
             <h4>{title}</h4>
             <div className="flex gap-[8px]">
               <IconEdit onClick={onOpen} className="w-5 h-5 hover:cursor-pointer hover:opacity-[0.8]" />
 
-              <IconTrash onClick={handleDelete} className="w-5 h-5 hover:text-rose-700 hover:cursor-pointer" />
+              <Popover placement="top" color={'default'}>
+                <PopoverTrigger>
+                  <IconTrash className="w-5 h-5 hover:text-rose-700 hover:cursor-pointer" />
+                </PopoverTrigger>
+                <PopoverContent>
+                  <div className="px-1 py-2">
+                    <div className="text-small font-bold mb-2">Delete this ToDo?</div>
+                    <Button color="danger" onPress={handleDelete} variant="ghost" size="sm">
+                      Yes
+                    </Button>
+                  </div>
+                </PopoverContent>
+              </Popover>
             </div>
           </div>
 

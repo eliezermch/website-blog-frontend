@@ -16,7 +16,7 @@ const NewTaskButton = ({ data }: Props) => {
   return (
     <>
       <div className="flex gap-1 hover:cursor-pointer" onClick={onOpen}>
-        <IconPlus className="text-primary" />
+        <IconPlus className="text-primary hover:rotate-180 transition-all duration-400 ease-in-out" />
         New To-DO
       </div>
 
