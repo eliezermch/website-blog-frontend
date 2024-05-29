@@ -3,6 +3,7 @@
 import { Session } from '@/types/session-model';
 import { logout } from '@/utils/session';
 import { Avatar, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@nextui-org/react';
+import Link from 'next/link';
 
 interface Props {
   session: Session;
@@ -28,7 +29,9 @@ const DropdownProfile = ({ session }: Props) => {
             <p className="font-semibold">Signed in as</p>
             <p className="font-semibold">{session.user.username}</p>
           </DropdownItem>
-          <DropdownItem key="settings">My Settings</DropdownItem>
+          <DropdownItem key="settings">
+            <Link href={'/profile'}>My Settings</Link>
+          </DropdownItem>
           <DropdownItem onClick={() => logout()} key="logout" className="text-[#f31260]" color="danger">
             Log Out
           </DropdownItem>

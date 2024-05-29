@@ -13,7 +13,7 @@ export const updateTask = async (
 ) => {
   try {
     const res = await updateData(url, data, authToken);
-    console.log('🚀 ~ res:', res);
+
     revalidatePath('/tasks');
     return res;
   } catch (error) {

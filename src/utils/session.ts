@@ -26,7 +26,6 @@ export async function decrypt(input: string): Promise<any> {
 export async function login(formData: any) {
   // Verify credentials && get the user
   const response = await postData('http://127.0.0.1:8000/login', formData, undefined);
-  console.log('🚀 ~ login ~ data:', response);
 
   if (response.success) {
     const user = {
@@ -39,8 +38,6 @@ export async function login(formData: any) {
         .charAt(0)
         .toLocaleUpperCase()}&width=50&height=50&bgColor=${getRandomHexColor()}`,
     };
-
-    console.log('🚀 ~ login ~ user:', user);
     // Create the session
     const expires = new Date(Date.now() + 2 * 60 * 60 * 1000);
     const session = await encrypt({ user, expires });
@@ -65,7 +62,6 @@ export async function getSession() {
 
 export async function updateSession(request: NextRequest) {
   const session = request.cookies.get('session')?.value;
-  console.log('🚀 ~ updateSession ~ session:', session);
   if (!session) return;
 
   // Refresh the session so it doesn't expire

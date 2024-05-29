@@ -1,8 +1,8 @@
-import ToDoList from '@/components/todo-list';
 import { getSession } from '@/utils/session';
 import { redirect } from 'next/navigation';
 import { fetchTasks } from '../actions/fetch-tasks-action';
 import { Task } from '@/types/session-model';
+import ListContainer from '@/components/list-container';
 
 const TASKS_API = 'http://127.0.0.1:8000/api/tasks/';
 
@@ -27,10 +27,7 @@ const ToDoPage = async () => {
 
   return (
     <main>
-      <div className="w-full flex flex-col justify-center items-center gap-[32px] md:px-[24px] lg:px-[0] md:gap-[130px] md:flex-row mt-[60px]">
-        <ToDoList data={session} tasks={incompleteTasks} title="To-Do List" />
-        <ToDoList data={session} tasks={completedTasks} title="Done Tasks" />
-      </div>
+      <ListContainer session={session} incompleteTasks={incompleteTasks} completedTasks={completedTasks} />
     </main>
   );
 };

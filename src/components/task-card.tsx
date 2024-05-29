@@ -7,6 +7,7 @@ import { Session } from '@/types/session-model';
 import { deleteTask } from '@/app/actions/delete-task-action';
 
 interface Props {
+  index: number;
   title: string;
   description: string;
   done: boolean;
@@ -16,7 +17,7 @@ interface Props {
 
 const TASKS_API = 'http://127.0.0.1:8000/api/tasks/';
 
-const TaskCard = ({ title, description, done, id, session }: Props) => {
+const TaskCard = ({ title, description, done, id, session, index }: Props) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const truncate = (str: string, n: number) => {
@@ -30,10 +31,7 @@ const TaskCard = ({ title, description, done, id, session }: Props) => {
   return (
     <>
       <Card className="bg-green-700 mb-[12px] hover:cursor-pointer">
-        <CardBody
-          // onClick={onOpen}
-          className="max-h-[140px] min-h-[100px]"
-        >
+        <CardBody onClick={onOpen} className="max-h-[140px] min-h-[100px]">
           <div className="flex justify-between">
             <h4>{title}</h4>
             <div className="flex gap-[8px]">
@@ -58,6 +56,7 @@ const TaskCard = ({ title, description, done, id, session }: Props) => {
           <p>{truncate(description, 82)}</p>
         </CardBody>
       </Card>
+
       <TaskModal
         title={title}
         description={description}

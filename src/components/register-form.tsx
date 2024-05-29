@@ -43,7 +43,6 @@ const RegisterForm = () => {
   const handleRegister = async (e: FormEvent<HTMLFormElement>, token: string | undefined) => {
     e.preventDefault();
     const response = await postData('http://127.0.0.1:8000/register', formData, token);
-    console.log('🚀 ~ handlePost ~ response:', response);
     if (response.success) {
       setRegisterSuccess(true);
       setSignIn(true);
@@ -66,7 +65,7 @@ const RegisterForm = () => {
   };
 
   return (
-    <div className="min-w-[320px] mac-w-[320px] md:min-w-[400px] md:max-w-[400px] xl:min-w-[440px] xl:max-w-[440px]">
+    <div className="relative min-w-[320px] max-w-[320px] md:min-w-[400px] md:max-w-[400px] xl:min-w-[440px] xl:max-w-[440px] z-[1]">
       {signIn ? (
         <>
           {registerSuccess && !messageError && (
