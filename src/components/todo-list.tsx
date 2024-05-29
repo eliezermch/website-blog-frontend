@@ -1,6 +1,6 @@
 import { Session, Task } from '@/types/session-model';
 import TaskCard from './task-card';
-import { ScrollShadow } from '@nextui-org/react';
+import { Card, ScrollShadow } from '@nextui-org/react';
 import { NewTaskButton } from './new-task-button';
 
 interface Props {
@@ -12,7 +12,10 @@ interface Props {
 
 const ToDoList = ({ title, data, tasks, id }: Props) => {
   return (
-    <div className="w-full relative max-w-[420px] min-w-[280px] h-[540px] p-[1.2rem] bg-zinc-800 rounded-small shadow-card transition-all duration-[0.2s] z-[1] ease-in-out">
+    <Card
+      shadow="lg"
+      className="w-full relative max-w-[420px] min-w-[280px] h-[540px] p-[1.2rem] bg-zinc-900/70 rounded-small shadow-card transition-all duration-[0.2s] z-[1] ease-in-out"
+    >
       <ScrollShadow hideScrollBar className="w-full h-full">
         <div className="w-full h-full">
           <div className="w-full flex justify-between mb-[12px]">
@@ -34,7 +37,7 @@ const ToDoList = ({ title, data, tasks, id }: Props) => {
           ))}
         </div>
       </ScrollShadow>
-    </div>
+    </Card>
   );
 };
 
