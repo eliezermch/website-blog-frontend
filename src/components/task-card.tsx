@@ -13,11 +13,12 @@ interface Props {
   done: boolean;
   id: number;
   session: Session;
+  setMarkAsDone: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const TASKS_API = 'http://127.0.0.1:8000/api/tasks/';
 
-const TaskCard = ({ title, description, done, id, session, index }: Props) => {
+const TaskCard = ({ title, description, done, id, session, setMarkAsDone, index }: Props) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const truncate = (str: string, n: number) => {
@@ -66,6 +67,7 @@ const TaskCard = ({ title, description, done, id, session, index }: Props) => {
         isOpen={isOpen}
         onOpen={onOpen}
         onOpenChange={onOpenChange}
+        setMarkAsDone={setMarkAsDone}
       />
     </>
   );

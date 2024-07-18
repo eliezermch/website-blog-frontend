@@ -20,8 +20,8 @@ const NavBar = async () => {
             Profile
           </Link>
         </NavbarItem>
-        <NavbarItem isActive>
-          <Link href="/tasks" aria-current="page">
+        <NavbarItem>
+          <Link href="/tasks" color="foreground" aria-current="page">
             ToDo-List
           </Link>
         </NavbarItem>

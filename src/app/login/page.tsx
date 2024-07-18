@@ -10,7 +10,7 @@ const Login = async () => {
   }
 
   return (
-    <main className="w-full h-full flex justify-center items-center mt-[160px]">
+    <main className="w-full h-[100vh] flex justify-center items-center">
       <RegisterForm />
     </main>
   );

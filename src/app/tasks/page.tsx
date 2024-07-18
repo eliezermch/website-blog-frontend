@@ -6,7 +6,7 @@ import ListContainer from '@/components/list-container';
 
 const TASKS_API = 'http://127.0.0.1:8000/api/tasks/';
 
-export const dynamic = 'force-dynamic';
+// export const dynamic = 'force-dynamic';
 
 const ToDoPage = async () => {
   const session = await getSession();
@@ -26,7 +26,7 @@ const ToDoPage = async () => {
   const incompleteTasks = filterTasks(data, false);
 
   return (
-    <main>
+    <main className="h-[100vh]">
       <ListContainer session={session} incompleteTasks={incompleteTasks} completedTasks={completedTasks} />
     </main>
   );

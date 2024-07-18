@@ -22,16 +22,35 @@ interface Props {
   authToken: string;
   onOpen: () => void;
   onOpenChange: () => void;
+  setMarkAsDone: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function TaskModal({ isOpen, onOpenChange, title, description, id, authToken, done }: Props) {
+export default function TaskModal({
+  isOpen,
+  onOpenChange,
+  title,
+  description,
+  id,
+  authToken,
+  done,
+  setMarkAsDone,
+}: Props) {
   const [titleValue, setTitleValue] = useState<string>(title);
   const [descriptionValue, setDescriptionValue] = useState<string>(description);
   const [error, setError] = useState<string>('This field may not be blank.');
   const [success, setSuccess] = useState<boolean>();
 
-  const handleDone = () => {
-    markAsDoneTask(`http://127.0.0.1:8000/api/tasks/${id}/done/`, authToken);
+  const handleDone = async () => {
+    const res = await markAsDoneTask(`http://127.0.0.1:8000/api/tasks/${id}/done/`, authToken);
+    if (res?.success) {
+      if (res.data.done) {
+        setMarkAsDone(true);
+        console.log('mark as done');
+      } else {
+        setMarkAsDone(false);
+        console.log('mark as undone');
+      }
+    }
   };
 
   const handleUpdate = async () => {
