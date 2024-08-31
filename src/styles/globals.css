@@ -64,3 +64,37 @@ body {
 .confetti-piece:nth-child(even) {
   background-color: yellow;
 }
+
+.dropzone {
+  position: relative;
+  max-width: 100%;
+  width: 360px;
+  height: 147px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: auto;
+  color: #888;
+  transition: border-color 0.3s ease;
+  margin-bottom: 24px;
+
+  /* // border */
+  background-position: 0 0, 0 0, 100% 0, 0 100%;
+  background-size: 1px 100%, 100% 1px, 1px 100%, 100% 1px;
+  background-repeat: no-repeat;
+  background-image: repeating-linear-gradient(45deg, #45d483, #45d483 10px, transparent 10px, transparent 20px),
+    /* // left */ repeating-linear-gradient(135deg, #45d483, #45d483 10px, transparent 10px, transparent 22px),
+    /* // top */ repeating-linear-gradient(225deg, #45d483, #45d483 10px, transparent 10px, transparent 19px),
+    /* // right */ repeating-linear-gradient(315deg, #45d483, #45d483 10px, transparent 10px, transparent 22px)
+      /* // bottom */;
+
+  &:hover {
+    border-color: #aaa;
+  }
+
+  input {
+    display: none;
+  }
+}

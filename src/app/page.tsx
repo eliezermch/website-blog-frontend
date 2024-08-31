@@ -5,11 +5,11 @@ import Link from 'next/link';
 import { redirect } from 'next/navigation';
 
 export default async function Home() {
-  const session = await getSession();
+  // const session = await getSession();
 
-  if (session === null) {
-    redirect('/login');
-  }
+  // if (session === null) {
+  //   redirect('/login');
+  // }
 
   return (
     <>
